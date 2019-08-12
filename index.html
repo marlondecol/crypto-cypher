@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		
+		<title>Crypto Cypher</title>
+
+		<!-- Importa os ícones do Font Awesome via CDN -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/solid.css"
+			  integrity="sha384-VUnOJnDrNS0aVOhF6puq5SPJOP5oOvIO6n54m14E2/OHv6DU1gklJ4EImoD382c5"
+			  crossorigin="anonymous">
+		
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/fontawesome.css"
+			  integrity="sha384-jUGOH+gYMCfz2jbO6DW8vojES/a323h7dcoT6qI7Bvod9mew/wwTZryjccmaMOkf"
+			  crossorigin="anonymous">
+
+		<!-- Arquivos CSS da aplicação -->
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="title push-left">Crypto Cypher</div>
+				<div class="help" id="help"><i class="fas fa-question-circle fa-fw"></i></div>
+			</div>
+
+			<div class="row grow">
+				<div class="col box">
+					<div class="info">Mensagem real</div>
+					<textarea class="input" id="decrypted" autofocus></textarea>
+				</div>
+				
+				<div class="col box">
+					<div class="info">Mensagem criptografada</div>
+					<textarea class="input" id="encrypted"></textarea>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="text push-left">
+					<i class="fas fa-stopwatch fa-fw"></i> Tempo da última operação: <div class="info" id="timer"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Importa a jQuery 3.4.1 via CDN -->
+		<script src="https://code.jquery.com/jquery-3.4.1.js"
+				integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+				crossorigin="anonymous"></script>
+		
+		<!-- Script do funcionamento da criptografia -->
+		<script src="js/cypher.js"></script>
+	</body>
+</html>
