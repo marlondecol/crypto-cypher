@@ -69,32 +69,62 @@ body {
 
 .box {
 	background-color: black;
-	border-radius: 16px;
+	border-radius: 8px 8px 4px 4px;
 	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
-	cursor: pointer;
+	position: relative;
 	width: 100%;
 }
 
 .info {
-	cursor: pointer;
+	align-items: center;
+	display: flex;
+	justify-content: center;
 	margin: 8px;
 	margin-bottom: 4px;
+	position: relative;
 	text-align: center;
 	user-select: none;
 	width: 100%;
 }
 
+.buttons {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	right: 16px;
+	position: absolute;
+}
+
+.option {
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8);
+	color: #333;
+	cursor: pointer;
+	opacity: 0;
+	transition: color 0.2s, opacity 0.2s, visibility 0.2s;
+	user-select: none;
+	visibility: hidden;
+}
+
+.option:hover {
+	color: #eee;
+}
+
+.option:active {
+	color: #00bfff;
+}
+
 .input {
 	background-color: #333;
-	border-radius: 12px;
+	border-radius: 1px;
 	border: none;
-	cursor: pointer;
+	color: #eee;
 	height: 100%;
 	margin: 4px;
 	padding: 8px;
 	outline: none;
+	overflow: auto;
 	resize: none;
-	transition: background-color 0.2s;
+	transition: background-color 0.2s, color 0.2s;
 }
 
 .input:hover {
@@ -103,6 +133,7 @@ body {
 
 .input:focus {
 	background-color: #ccc;
+	color: #333;
 }
 
 .text {
@@ -111,6 +142,23 @@ body {
 	margin-left: 16px;
 	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 	user-select: none;
+}
+
+.measure {
+	font-weight: bolder;
+}
+
+#timer {
+	font-size: 20pt;
+}
+
+#encrypted {
+	font-family: 'Courier New', Courier, monospace;
+}
+
+#encrypted:focus {
+	background-color: #111;
+	color: #2e1;
 }
 
 

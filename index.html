@@ -22,26 +22,45 @@
 	</head>
 	<body>
 		<div class="container">
+			<!-- Título -->
 			<div class="row">
 				<div class="title push-left">Crypto Cypher</div>
 				<div class="help" id="help"><i class="fas fa-question-circle fa-fw"></i></div>
 			</div>
 
+			<!-- Campos de texto -->
 			<div class="row grow">
+				<!-- Campo da mensagem revelada -->
 				<div class="col box">
-					<div class="info">Mensagem real</div>
-					<textarea class="input" id="decrypted" autofocus></textarea>
+					<div class="info">
+						Mensagem revelada
+						<div class="buttons">
+							<div class="option clear" id="clearEncrypted" title="Limpar mensagem"><i class="fas fa-eraser fa-fw"></i></div>
+							<div class="option copy" id="copyEncrypted" title="Copiar mensagem"><i class="fas fa-copy fa-fw"></i></div>
+							<div class="option save" id="saveEncrypted" title="Baixar mensagem"><i class="fas fa-file-download fa-fw"></i></div>
+						</div>
+					</div>
+					<textarea class="input" id="decrypted" placeholder="Digite sua mensagem aqui para criptografá-la" spellcheck="false" autofocus></textarea>
 				</div>
 				
+				<!-- Campo da mensagem cifrada -->
 				<div class="col box">
-					<div class="info">Mensagem criptografada</div>
-					<textarea class="input" id="encrypted"></textarea>
+					<div class="info">
+						Mensagem cifrada
+						<div class="buttons">
+							<div class="option clear" id="clearDecrypted" title="Limpar mensagem"><i class="fas fa-eraser fa-fw"></i></div>
+							<div class="option copy" id="copyDecrypted" title="Copiar mensagem"><i class="fas fa-copy fa-fw"></i></div>
+							<div class="option save" id="saveDecrypted" title="Baixar mensagem"><i class="fas fa-file-download fa-fw"></i></div>
+						</div>
+					</div>
+					<textarea class="input" id="encrypted" placeholder="Digite sua mensagem criptografada aqui para revelá-la" spellcheck="false"></textarea>
 				</div>
 			</div>
 
+			<!-- Cronômetro do processo -->
 			<div class="row">
 				<div class="text push-left">
-					<i class="fas fa-stopwatch fa-fw"></i> Tempo da última operação: <div class="info" id="timer"></div>
+					<i class="fas fa-stopwatch fa-fw"></i> Tempo da última operação: <span class="measure" id="timer"><i class="fas fa-infinity fa-fw"></i> ms</span>
 				</div>
 			</div>
 		</div>
