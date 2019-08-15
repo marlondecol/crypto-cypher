@@ -2,7 +2,7 @@
  * ✔ Fazer opção de agrupamento de caracteres
  * ✔ Tamanho do texto em caracteres
  * ✔ Contador de caracteres criptografados
- * Implementar a opção de download
+ * ✔ Implementar a opção de download
  * Página de ajuda
  * Informar os integrantes da equipe
  * Pop-up do que foi feito ao passar o mouse em um caractere
@@ -107,6 +107,32 @@ function getRight(char) {
 	}
 }
 
+// Baixa um arquivo .txt de uma das mensagens.
+// Retirado de: https://thiscouldbebetter.wordpress.com/2012/12/18/loading-editing-and-saving-a-text-file-in-html5-using-javascrip
+function saveFile(input) {
+	var date = new Date();
+	
+	date = date.getFullYear() + "-"
+		 + date.getMonth() + "-"
+		 + date.getDate() + "-"
+		 + date.getHours() + "-"
+		 + date.getMinutes() + "-"
+		 + date.getSeconds() + "-"
+		 + date.getMilliseconds();
+
+	var link = document.createElement("a");
+
+	link.download = input[0].id + "-" + date;
+    link.href = window.URL.createObjectURL(new Blob([$(input).val()], {type:"text/plain"}));
+    link.style.display = "none";
+	
+	document.body.appendChild(link);
+ 
+	link.click();
+	
+	document.body.removeChild(link);
+}
+
 // Alterna a exibição dos botões de opções em cada campo de texto, quando há ou não texto.
 function toggleOptions(input) {
 	if ($(input).val().length) {
@@ -148,6 +174,11 @@ $(".option.copy").click(function() {
 	window.getSelection().removeAllRanges();
 	
 	$(input).focus();
+});
+
+// Ação da opção de salvar um arquivo da mensagem de um campo.
+$(".option.save").click(function() {
+	saveFile($(this).parent().parent().next());
 });
 
 // Encripta um texto conforme digita uma mensagem e vai mostrando no campo oposto.
