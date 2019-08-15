@@ -18,10 +18,10 @@
 	</head>
 	<body>
 		<div class="container">
-			<!-- Título -->
+			<!-- Título e botão de informações -->
 			<div class="row">
-				<div class="title push-left">Crypto Cypher</div>
-				<div class="help" id="help"><i class="fas fa-question-circle fa-fw"></i></div>
+				<div class="title push-left">CryptoCypher</div>
+				<div class="help" id="help" title="Informaçõe sobre o CryptoCypher"><span>Informações</span><i class="fas fa-info-circle fa-fw"></i></div>
 			</div>
 
 			<!-- Campos de texto -->
@@ -59,10 +59,21 @@
 				</div>
 			</div>
 
-			<!-- Cronômetro do processo -->
-			<div class="row">
-				<div class="text push-left">
+			<!-- Informações importantes -->
+			<div class="row lower">
+				<!-- Cronômetro dos processos -->
+				<div class="text">
 					<i class="fas fa-stopwatch fa-fw"></i> Tempo da última operação: <span class="measure" id="timer"><i class="fas fa-infinity fa-fw"></i> ms</span>
+				</div>
+
+				<!-- Total de caracteres -->
+				<div class="text">
+					<i class="fas fa-font fa-fw"></i> Total de caracteres da mensagem: <span class="measure" id="numChars"></span>
+				</div>
+				
+				<!-- Total de caracteres criptografados -->
+				<div class="text">
+					<i class="fas fa-eye-slash fa-fw"></i> Total de caracteres cifrados: <span class="measure" id="numEncrypted"></span>
 				</div>
 			</div>
 		</div>

@@ -1,14 +1,14 @@
 /**
  * ✔ Fazer opção de agrupamento de caracteres
- * Contador de caracteres criptografados
- * Tamanho do texto em caracteres
- * Página de ajuda
- * Pop-up do que foi feito ao passar o mouse em um caractere
+ * ✔ Tamanho do texto em caracteres
+ * ✔ Contador de caracteres criptografados
  * Implementar a opção de download
- * Rodapé com os integrantes da equipe
+ * Página de ajuda
+ * Informar os integrantes da equipe
+ * Pop-up do que foi feito ao passar o mouse em um caractere
+ * Comentar bem o código
  * Fazer uma documentação para a aplicação
  * Digitar o conteúdo do README.md
- * Comentar bem o código
  */
 
 
@@ -26,11 +26,13 @@ var groups = [
 ];
 
 // Variáveis do cronômetro.
-var startTime = 0;
-var endTime = 0;
+var startTime, endTime;
 
 // Tamanho dos agrupamentos.
 var groupSize;
+
+// Quantidade de caracteres criptografados.
+var numEncrypted;
 
 // Divide a mensagem criptografada em grupos de caracteres.
 function agroup(msg, countTime=true) {
@@ -66,6 +68,8 @@ function decrypt(msg, countTime=true) {
 
 // Encripta uma mensagem.
 function encrypt(msg, countTime=true) {
+	numEncrypted = 0;
+
 	if (countTime) startTime = new Date();
 
 	msg = msg.toLowerCase();
@@ -79,6 +83,7 @@ function encrypt(msg, countTime=true) {
 		}
 
 		encrypted += getRandom(char);
+		numEncrypted++;
 	}
 
 	if (countTime) endTime = new Date();
@@ -109,6 +114,12 @@ function toggleOptions(input) {
 	} else {
 		$(".buttons, .param").addClass("hidden");
 	}
+}
+
+// Atualiza os contadores de caracteres.
+function updateCounters() {
+	$("#numChars").text($("#decrypted").val().length);
+	$("#numEncrypted").text(numEncrypted);
 }
 
 // Atualiza o cronômetro.
@@ -145,6 +156,7 @@ $("#decrypted").on("input", function() {
 	$("#encrypted").val(encrypt($(this).val()));
 
 	toggleOptions(this);
+	updateCounters();
 	updateTimer();
 });
 
@@ -154,6 +166,7 @@ $("#encrypted").on("input", function(ev) {
 	$("#decrypted").val(decrypt($(this).val()));
 	
 	toggleOptions(this);
+	updateCounters();
 	updateTimer();
 });
 
@@ -183,4 +196,7 @@ $(document).ready(function() {
 	// Define o tamanho do agrupamento ao carregar a página,
 	// usando o valor que estiver neste input.
 	$("#groupSize").trigger("input");
-})
+
+	// Já atualiza os contadores de caracteres.
+	updateCounters();
+});

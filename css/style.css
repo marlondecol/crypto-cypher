@@ -35,9 +35,12 @@ body {
 }
 
 .help {
+	align-items: center;
 	color: #444;
 	cursor: pointer;
+	display: flex;
 	font-size: 38pt;
+	justify-content: center;
 	margin-right: 16px;
 	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 	transition: color 0.2s;
@@ -50,6 +53,12 @@ body {
 
 .help:active {
 	color: #00bfff;
+}
+
+.help > span {
+	font-size: 26pt;
+	font-weight: bold;
+	margin: 2px 0 -2px 0;
 }
 
 .col {
@@ -173,27 +182,29 @@ body {
 
 .text {
 	cursor: default;
-	font-size: 14pt;
-	margin-left: 16px;
+	font-size: 12pt;
+	margin: 0 16px;
 	text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 	user-select: none;
+	width: 100%;
 }
 
 .measure {
+	font-size: 16pt;
 	font-weight: bolder;
 }
 
-#timer {
-	font-size: 20pt;
-}
-
 #encrypted {
+	color: #2e1;
 	font-family: 'Courier New', Courier, monospace;
 }
 
+#encrypted:hover {
+	background-color: #222;
+}
+
 #encrypted:focus {
-	background-color: #111;
-	color: #2e1;
+	background-color: #070707;
 }
 
 
@@ -209,6 +220,10 @@ body {
 .hidden {
 	opacity: 0;
 	visibility: hidden;
+}
+
+.lower {
+	margin-top: 48px;
 }
 
 .push-left {
