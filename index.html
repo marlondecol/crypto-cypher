@@ -20,61 +20,104 @@
 		<div class="container">
 			<!-- Título e botão de informações -->
 			<div class="row">
-				<div class="title push-left">CryptoCypher</div>
+				<a href="https://github.com/mlc2307/crypto-cypher" target="blank" class="title push-left" title="Ir para o repositório do CryptoCypher no GitHub">CryptoCypher</a>
 				<div class="help" id="help" title="Informaçõe sobre o CryptoCypher"><span>Informações</span><i class="fas fa-info-circle fa-fw"></i></div>
 			</div>
 
-			<!-- Campos de texto -->
-			<div class="row grow">
-				<!-- Campo da mensagem revelada -->
-				<div class="col box">
-					<div class="info">
-						Mensagem revelada
-						<div class="buttons hidden">
-							<div class="option clear danger" id="clearDecrypted" title="Limpar mensagem"><i class="fas fa-eraser fa-fw"></i></div>
-							<div class="option copy" id="copyDecrypted" title="Copiar mensagem"><i class="fas fa-copy fa-fw"></i></div>
-							<div class="option save" id="saveDecrypted" title="Baixar mensagem"><i class="fas fa-file-download fa-fw"></i></div>
+			<!-- Guia da página -->
+			<div class="leader">
+				<!-- Painel principal -->
+				<div class="page" id="mainPanel">
+					<!-- Campos de texto -->
+					<div class="row grow">
+						<!-- Campo da mensagem revelada -->
+						<div class="col box">
+							<div class="info">
+								Mensagem revelada
+								<div class="buttons hidden">
+									<div class="option clear danger" id="clearDecrypted" title="Limpar mensagem"><i class="fas fa-eraser fa-fw"></i></div>
+									<div class="option copy" id="copyDecrypted" title="Copiar mensagem"><i class="fas fa-copy fa-fw"></i></div>
+									<div class="option save" id="saveDecrypted" title="Baixar mensagem"><i class="fas fa-file-download fa-fw"></i></div>
+								</div>
+							</div>
+							<textarea class="input" id="decrypted" placeholder="Digite sua mensagem aqui para criptografá-la" spellcheck="false" autofocus></textarea>
+						</div>
+						
+						<!-- Campo da mensagem cifrada -->
+						<div class="col box">
+							<div class="info">
+								<div class="note hidden"><span id="numBytes"></span> bytes</div>
+								Mensagem cifrada
+								<div class="buttons hidden">
+									<div class="option clear danger" id="clearEncrypted" title="Limpar mensagem"><i class="fas fa-eraser fa-fw"></i></div>
+									<div class="option copy" id="copyEncrypted" title="Copiar mensagem"><i class="fas fa-copy fa-fw"></i></div>
+									<div class="option save" id="saveEncrypted" title="Baixar mensagem"><i class="fas fa-file-download fa-fw"></i></div>
+								</div>
+							</div>
+							<textarea class="input" id="encrypted" placeholder="Digite sua mensagem criptografada aqui para revelá-la" spellcheck="false"></textarea>
+							
+							<!-- Tamanhos dos agrupamentos -->
+							<div class="param push-right hidden" title="Separa a mensagem cifrada por grupos de caracteres. Valores nulos não alteram a mensagem">
+								<i class="fas fa-shield-alt fa-fw"></i> Tamanho dos agrupamentos:
+								<input type="number" name="groupSize" id="groupSize" min="0" max="100" value="0">
+							</div>
 						</div>
 					</div>
-					<textarea class="input" id="decrypted" placeholder="Digite sua mensagem aqui para criptografá-la" spellcheck="false" autofocus></textarea>
-				</div>
-				
-				<!-- Campo da mensagem cifrada -->
-				<div class="col box">
-					<div class="info">
-						<div class="note"><span id="numBytes"></span> bytes</div>
-						Mensagem cifrada
-						<div class="buttons hidden">
-							<div class="option clear danger" id="clearEncrypted" title="Limpar mensagem"><i class="fas fa-eraser fa-fw"></i></div>
-							<div class="option copy" id="copyEncrypted" title="Copiar mensagem"><i class="fas fa-copy fa-fw"></i></div>
-							<div class="option save" id="saveEncrypted" title="Baixar mensagem"><i class="fas fa-file-download fa-fw"></i></div>
+
+					<!-- Informações importantes -->
+					<div class="row lower">
+						<!-- Cronômetro dos processos -->
+						<div class="text">
+							<i class="fas fa-stopwatch fa-fw"></i> Tempo da última operação: <span class="measure" id="timer"><i class="fas fa-infinity fa-fw"></i> ms</span>
+						</div>
+
+						<!-- Total de caracteres -->
+						<div class="text">
+							<i class="fas fa-font fa-fw"></i> Total de caracteres da mensagem: <span class="measure" id="numChars"></span>
+						</div>
+						
+						<!-- Total de caracteres criptografados -->
+						<div class="text">
+							<i class="fas fa-eye-slash fa-fw"></i> Total de caracteres cifrados: <span class="measure" id="numEncrypted"></span>
 						</div>
 					</div>
-					<textarea class="input" id="encrypted" placeholder="Digite sua mensagem criptografada aqui para revelá-la" spellcheck="false"></textarea>
-					
-					<!-- Tamanhos dos agrupamentos -->
-					<div class="param push-right hidden" title="Separa a mensagem cifrada por grupos de caracteres. Valores nulos não alteram a mensagem">
-						<i class="fas fa-shield-alt fa-fw"></i> Tamanho dos agrupamentos:
-						<input type="number" name="groupSize" id="groupSize" min="0" max="100" value="0">
-					</div>
-				</div>
-			</div>
-
-			<!-- Informações importantes -->
-			<div class="row lower">
-				<!-- Cronômetro dos processos -->
-				<div class="text">
-					<i class="fas fa-stopwatch fa-fw"></i> Tempo da última operação: <span class="measure" id="timer"><i class="fas fa-infinity fa-fw"></i> ms</span>
-				</div>
-
-				<!-- Total de caracteres -->
-				<div class="text">
-					<i class="fas fa-font fa-fw"></i> Total de caracteres da mensagem: <span class="measure" id="numChars"></span>
 				</div>
 				
-				<!-- Total de caracteres criptografados -->
-				<div class="text">
-					<i class="fas fa-eye-slash fa-fw"></i> Total de caracteres cifrados: <span class="measure" id="numEncrypted"></span>
+				<!-- Painel de informações -->
+				<div class="page hidden no-select" id="helpPanel">
+					<div class="row" style="padding-bottom: 4px;">
+						<div class="col box">
+							<div class="info">Informações</div>
+							
+							<div class="pars bottom-shadow">
+								<p>O CryptoCypher é uma aplicação que criptografa uma mensagem ou revela uma mensagem já criptografada, através do método da susbstituição homofônica, respeitando o alfabeto e seus grupos de letras mostrado ao lado.</p>
+
+								<p>Este método consiste em definir um grupo de caracteres para cada caractere do alfabeto, onde esses grupos podem ser maiores para caracteres que são mais comuns em um texto e menores caso contrário, mas não necessariamente. No processo de criptografia cada caractere da mensagem original é substituído aleatoriamente por um caractere de seu grupo.</p>
+
+								<p>O processo de encriptação ou decriptação do CryptoCypher é automático. A cada mudança na mensagem de qualquer um dos campos, o resultado obtido será exibido no outro, ou seja, ao inserir uma mensagem no campo <em>Mensagem revelada</em>, a mensagem criptografada aparecerá imediatamente no campo <em>Mensagem cifrada</em>, e vice-versa.</p>
+
+								<p>Assim que qualquer mensagem for inserida, algumas opções estarão disponíveis no canto superior direito de cada campo e um contador de bytes para a mensagem criptografada é exibido no canto superior esquerdo deste campo, bem como uma opção de configuração do tamanho do agrupamento para a mensagem cifrada, logo abaixo. As opções são: apagar as mensagens e retomar o foco no campo, copiar toda a mensagem e salvar a mensagem em um arquivo localmente. Todas estas opções são relativas ao campo na qual elas pertencem. O contador de bytes conta a quantidade de caracteres que a mensagem cifrada possui. A configuração de tamanho do agrupamento indica que, ao separar o texto por espaços, serão mantidos grupos desta quantidade de caraceteres sem espaços. O tamanho pode variar de 0 a 100, onde 0 é o padrão e significa que não há agrupamento, mantendo as características do texto revelado. O agrupamento de caracteres serve para tornar a mensagem cifrada mais incompreensível.</p>
+
+								<p>No rodapé da página são observados alguns contadores. O primeiro, a esquerda, conta quanto tempo levou cada processo, o segundo quantos caracteres existem na mensagem revelada e o último quantos deste caracteres foram substiuídos. Eles são atualizados toda vez que ocorre uma mudança em uma das mensagens e sempre que o tamanho do agrupamento é alterado.</p>
+							</div>
+						</div>
+
+						<div class="col">
+							<div class="contour push-top" id="alphabetTable">
+								<!-- A tabela do alfabeto será inserida aqui -->
+							</div>
+						</div>
+					</div>
+
+					<div class="row distributed">
+						<div class="text">
+							Desenvolvido por <a class="link" href="https://github.com/EricsonAndre" target="blank"><i class="fab fa-github fa-fw"></i> Ericson André Borghardt</a>, <a class="link" href="https://github.com/JulioCesarMartins" target="blank"><i class="fab fa-github fa-fw"></i> Julio César Martins</a> e <a class="link" href="https://github.com/mlc2307" target="blank"><i class="fab fa-github fa-fw"></i> Marlon Luís de Col</a>
+						</div>
+
+						<div class="text autosize unbreak">
+							<i class="fas fa-copyright fa-fw"></i> 2019 &bull; <a class="link" href="https://www.unoesc.edu.br/" target="blank">Unoesc Chapecó <i class="fas fa-external-link-alt fa-fw"></i></a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

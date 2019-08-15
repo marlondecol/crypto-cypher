@@ -3,9 +3,10 @@
  * ✔ Tamanho do texto em caracteres
  * ✔ Contador de caracteres criptografados
  * ✔ Implementar a opção de download
- * Contador de bytes da mensagem cifrada
+ * ✔ Contador de bytes da mensagem cifrada
  * Página de ajuda
  * Informar os integrantes da equipe
+ * Mostrar a tabela do alfabeto e grupos
  * Pop-up do que foi feito ao passar o mouse em um caractere
  * Comentar bem o código
  * Fazer uma documentação para a aplicação
@@ -134,12 +135,50 @@ function saveFile(input) {
 	document.body.removeChild(link);
 }
 
+// Monta a estrutura e exibe o alfabeto e os grupos de letras na página de informações.
+function showMethod() {
+	for (var j = 0; j < alphabet.length; j++) {
+		child = '<div class="set">';
+		
+		child += '<div class="alphabet">';
+		child += '<div class="char">' + alphabet[j] + '</div>';
+		child += '</div>';
+
+		child += '<i class="arrow fas fa-arrow-down fa-fw"></i>';
+
+		child += '<div class="group">';
+
+		child += '<div class="char">' + groups[0][j] + '</div>';
+
+		for (var i = 1; i < groups.length; i++) {
+			if (groups[i][j] == "-") {
+				break
+			}
+
+			child += '<div class="bull"></div>';
+			child += '<div class="char">' + groups[i][j] + '</div>';
+		}
+
+		child += '</div>';
+
+		child += '<div>';
+
+		$("#alphabetTable").append(child);
+	}
+}
+
+// Alterna a exibição do painel de informações.
+function toggleHelp() {
+	$(".page").toggleClass("hidden");
+	$(".help").toggleClass("active");
+}
+
 // Alterna a exibição dos botões de opções em cada campo de texto, quando há ou não texto.
 function toggleOptions(input) {
 	if ($(input).val().length) {
-		$(".buttons, .param").removeClass("hidden");
+		$(".buttons, .note, .param").removeClass("hidden");
 	} else {
-		$(".buttons, .param").addClass("hidden");
+		$(".buttons, .note, .param").addClass("hidden");
 	}
 }
 
@@ -180,7 +219,7 @@ $(".option.copy").click(function() {
 
 // Ação da opção de salvar um arquivo da mensagem de um campo.
 $(".option.save").click(function() {
-	saveFile($(this).parent().parent().next());
+	saveFile($(this).parent().parent().next())
 });
 
 // Encripta um texto conforme digita uma mensagem e vai mostrando no campo oposto.
@@ -225,6 +264,9 @@ $("#groupSize").on("input", function() {
 	updateTimer();
 });
 
+// Ação ao clicar no botão de informações.
+$("#help").click(toggleHelp);
+
 // Ações realizadas ao carregar a página.
 $(document).ready(function() {
 	// Define o tamanho do agrupamento ao carregar a página,
@@ -233,4 +275,7 @@ $(document).ready(function() {
 
 	// Já atualiza todos os contadores.
 	updateCounters();
+
+	// Gera a tabela do alfabeto.
+	showMethod();
 });
