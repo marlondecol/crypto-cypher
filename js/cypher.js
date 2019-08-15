@@ -3,6 +3,7 @@
  * ✔ Tamanho do texto em caracteres
  * ✔ Contador de caracteres criptografados
  * ✔ Implementar a opção de download
+ * Contador de bytes da mensagem cifrada
  * Página de ajuda
  * Informar os integrantes da equipe
  * Pop-up do que foi feito ao passar o mouse em um caractere
@@ -142,8 +143,9 @@ function toggleOptions(input) {
 	}
 }
 
-// Atualiza os contadores de caracteres.
+// Atualiza os contadores de caracteres e bytes.
 function updateCounters() {
+	$("#numBytes").text($("#encrypted").val().length);
 	$("#numChars").text($("#decrypted").val().length);
 	$("#numEncrypted").text(numEncrypted);
 }
@@ -219,6 +221,7 @@ $("#groupSize").on("input", function() {
 	$("#encrypted").val(groupSize > 0 ? agroup(encrypt($("#decrypted").val(), false)) : encrypt($("#decrypted").val()));
 	$("#encrypted").prop("readonly", groupSize > 0);
 	
+	updateCounters();
 	updateTimer();
 });
 
@@ -228,6 +231,6 @@ $(document).ready(function() {
 	// usando o valor que estiver neste input.
 	$("#groupSize").trigger("input");
 
-	// Já atualiza os contadores de caracteres.
+	// Já atualiza todos os contadores.
 	updateCounters();
 });

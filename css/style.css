@@ -89,20 +89,32 @@ body {
 .info {
 	align-items: center;
 	display: flex;
+	flex-grow: 1;
 	justify-content: center;
 	margin: 8px;
 	margin-bottom: 4px;
 	position: relative;
 	text-align: center;
-	user-select: none;
-	width: 100%;
+	user-select: none
+}
+
+.note {
+	background-color: #333;
+	border-radius: 4px;
+	color: black;
+	font-size: 11pt;
+	font-weight: bold;
+	left: -2px;
+	padding: 2px 4px;
+	position: absolute;
+	transition: opacity 0.2s, visibility 0.2s;
 }
 
 .buttons {
 	align-items: center;
 	display: flex;
 	justify-content: center;
-	right: 16px;
+	right: 0;
 	position: absolute;
 	transition: opacity 0.2s, visibility 0.2s;
 }
