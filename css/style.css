@@ -148,6 +148,10 @@ a {
 	user-select: none
 }
 
+.icon {
+	margin-right: 8px;
+}
+
 .note {
 	background-color: #333;
 	border-radius: 4px;
@@ -261,10 +265,21 @@ a {
 	border-radius: 1px;
 	box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6);
 	color: #eee;
+	line-height: 125%;
 	overflow-y: auto;
 	margin: 4px;
 	padding: 0 16px;
 	text-align: justify;
+}
+
+.list > .item {
+	align-items: baseline;
+	display: flex;
+	padding: 4px 0 4px 24px;
+}
+
+.list > .item > .item-marker {
+	margin-right: 12px;
 }
 
 .contour {
@@ -335,6 +350,10 @@ a {
 .link:active {
 	color: #00bfff;
 	text-shadow: 0 0 4px rgba(0, 191, 255, 0.3);
+}
+
+.link.normal {
+	color: #00bfff;
 }
 
 #encrypted {

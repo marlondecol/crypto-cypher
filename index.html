@@ -33,7 +33,7 @@
 						<!-- Campo da mensagem revelada -->
 						<div class="col box">
 							<div class="info">
-								Mensagem revelada
+								<i class="icon fas fa-font"></i> Mensagem revelada
 								<div class="buttons hidden">
 									<div class="option clear danger" id="clearDecrypted" title="Limpar mensagem"><i class="fas fa-eraser fa-fw"></i></div>
 									<div class="option copy" id="copyDecrypted" title="Copiar mensagem"><i class="fas fa-copy fa-fw"></i></div>
@@ -47,7 +47,7 @@
 						<div class="col box">
 							<div class="info">
 								<div class="note hidden"><span id="numBytes"></span> bytes</div>
-								Mensagem cifrada
+								<i class="icon fas fa-eye-slash"></i> Mensagem cifrada
 								<div class="buttons hidden">
 									<div class="option clear danger" id="clearEncrypted" title="Limpar mensagem"><i class="fas fa-eraser fa-fw"></i></div>
 									<div class="option copy" id="copyEncrypted" title="Copiar mensagem"><i class="fas fa-copy fa-fw"></i></div>
@@ -68,17 +68,17 @@
 					<div class="row lower">
 						<!-- Cronômetro dos processos -->
 						<div class="text">
-							<i class="fas fa-stopwatch fa-fw"></i> Tempo da última operação: <span class="measure" id="timer"><i class="fas fa-infinity fa-fw"></i> ms</span>
+							<i class="icon fas fa-stopwatch"></i>Tempo da última operação: <span class="measure" id="timer"><i class="fas fa-infinity"></i> ms</span>
 						</div>
 
 						<!-- Total de caracteres -->
 						<div class="text">
-							<i class="fas fa-font fa-fw"></i> Total de caracteres da mensagem: <span class="measure" id="numChars"></span>
+							<i class="icon fas fa-font"></i>Total de caracteres da mensagem: <span class="measure" id="numChars"></span>
 						</div>
 						
 						<!-- Total de caracteres criptografados -->
 						<div class="text">
-							<i class="fas fa-eye-slash fa-fw"></i> Total de caracteres cifrados: <span class="measure" id="numEncrypted"></span>
+							<i class="icon fas fa-eye-slash"></i>Total de caracteres cifrados: <span class="measure" id="numEncrypted"></span>
 						</div>
 					</div>
 				</div>
@@ -87,18 +87,40 @@
 				<div class="page hidden no-select" id="helpPanel">
 					<div class="row" style="padding-bottom: 4px;">
 						<div class="col box">
-							<div class="info">Informações</div>
+							<div class="info"><i class="icon fas fa-info"></i> Informações</div>
 							
 							<div class="pars bottom-shadow">
-								<p>O CryptoCypher é uma aplicação que criptografa uma mensagem ou revela uma mensagem já criptografada, através do método da susbstituição homofônica, respeitando o alfabeto e seus grupos de letras mostrado ao lado.</p>
+								<p>O <b>CryptoCypher</b> é uma aplicação que criptografa uma mensagem e revela uma mensagem já criptografada, através do <em>método da substituição homofônica</em>, respeitando o alfabeto e seus grupos de caracteres mostrados ao lado.</p>
 
-								<p>Este método consiste em definir um grupo de caracteres para cada caractere do alfabeto, onde esses grupos podem ser maiores para caracteres que são mais comuns em um texto e menores caso contrário, mas não necessariamente. No processo de criptografia cada caractere da mensagem original é substituído aleatoriamente por um caractere de seu grupo.</p>
+								<p>Este método consiste em definir um grupo de caracteres para cada caractere do alfabeto, onde esses grupos podem ser maiores para caracteres que são mais comuns em um texto e menores caso contrário, mas não necessariamente. No processo de criptografia, cada caractere da mensagem original é substituído aleatoriamente por um caractere de seu grupo.</p>
 
-								<p>O processo de encriptação ou decriptação do CryptoCypher é automático. A cada mudança na mensagem de qualquer um dos campos, o resultado obtido será exibido no outro, ou seja, ao inserir uma mensagem no campo <em>Mensagem revelada</em>, a mensagem criptografada aparecerá imediatamente no campo <em>Mensagem cifrada</em>, e vice-versa.</p>
+								<p>Os processos de encriptação e decriptação do <b>CryptoCypher</b> são automáticos. A cada alteração em qualquer um dos campos de mensagem, o resultado obtido será exibido no campo oposto, ou seja, ao inserir ou modificar uma mensagem no campo <em>Mensagem revelada</em>, a mensagem criptografada aparecerá imediatamente no campo <em>Mensagem cifrada</em>, e vice-versa.</p>
 
-								<p>Assim que qualquer mensagem for inserida, algumas opções estarão disponíveis no canto superior direito de cada campo e um contador de bytes para a mensagem criptografada é exibido no canto superior esquerdo deste campo, bem como uma opção de configuração do tamanho do agrupamento para a mensagem cifrada, logo abaixo. As opções são: apagar as mensagens e retomar o foco no campo, copiar toda a mensagem e salvar a mensagem em um arquivo localmente. Todas estas opções são relativas ao campo na qual elas pertencem. O contador de bytes conta a quantidade de caracteres que a mensagem cifrada possui. A configuração de tamanho do agrupamento indica que, ao separar o texto por espaços, serão mantidos grupos desta quantidade de caraceteres sem espaços. O tamanho pode variar de 0 a 100, onde 0 é o padrão e significa que não há agrupamento, mantendo as características do texto revelado. O agrupamento de caracteres serve para tornar a mensagem cifrada mais incompreensível.</p>
+								<p>Assim que qualquer mensagem for inserida, alguns botões de opções estarão disponíveis no canto superior direito de cada campo e um contador de <em>bytes</em> para a mensagem criptografada é exibido no canto superior esquerdo deste campo, bem como uma opção de configuração do tamanho do agrupamento para a mensagem cifrada, logo abaixo.</p>
+								
+								<p>As opções dos botões são, respectivamente:</p>
 
-								<p>No rodapé da página são observados alguns contadores. O primeiro, a esquerda, conta quanto tempo levou cada processo, o segundo quantos caracteres existem na mensagem revelada e o último quantos deste caracteres foram substiuídos. Eles são atualizados toda vez que ocorre uma mudança em uma das mensagens e sempre que o tamanho do agrupamento é alterado.</p>
+								<div class="list">
+									<div class="item"><i class="item-marker fas fa-eraser fa-fw"></i><div class="item-text">apagar as mensagens e retomar o foco no campo;</div></div>
+									<div class="item"><i class="item-marker fas fa-copy fa-fw"></i><div class="item-text">copiar toda a mensagem; e</div></div>
+									<div class="item"><i class="item-marker fas fa-file-download fa-fw"></i><div class="item-text">salvar a mensagem em um arquivo localmente.</div></div>
+								</div>
+								
+								<p>Todas estas opções são relativas ao campo na qual os botões pertencem. O contador de <em>bytes</em> conta a quantidade de caracteres que a mensagem cifrada possui. A configuração de tamanho do agrupamento indica que, ao separar o texto por espaços, serão mantidos grupos desta quantidade de caracteres sem espaços. O tamanho pode variar de 0 a 100, onde 0 é o padrão e significa que não há agrupamento, mantendo as características do texto revelado. O agrupamento de caracteres serve para tornar a mensagem cifrada mais incompreensível.</p>
+
+								<p>No rodapé da página são observados alguns contadores. Eles indicam, respectivamente, o seguinte:</p>
+
+								<div class="list">
+									<div class="item"><i class="item-marker fas fa-stopwatch fa-fw"></i><div class="item-text">o tempo que cada processo demorou para ser executado;</div></div>
+									<div class="item"><i class="item-marker fas fa-font fa-fw"></i><div class="item-text">o total de caracteres que compõem a mensagem revelada; e</div></div>
+									<div class="item"><i class="item-marker fas fa-eye-slash fa-fw"></i><div class="item-text">a quantidade de caracteres que foram substituídos pelo processo de encriptação.</div></div>
+								</div>
+
+								<p>Estes contadores são atualizados toda vez que ocorre uma mudança em uma das mensagens e, também, sempre que o tamanho do agrupamento é alterado.</p>
+
+								<p>Para acessar o repositório do <b>CryptoCypher</b> no GitHub, basta clicar no título do cabeçalho desta aplicação ou <a href="https://github.com/mlc2307/crypto-cypher" target="blank" class="link normal" title="Ir para o repositório do CryptoCypher no GitHub">aqui <i class="fas fa-external-link-alt"></i></a>.</p>
+
+								<p>Abraço! <i class="fas fa-thumbs-up"></i></p>
 							</div>
 						</div>
 
@@ -115,7 +137,7 @@
 						</div>
 
 						<div class="text autosize unbreak">
-							<i class="fas fa-copyright fa-fw"></i> 2019 &bull; <a class="link" href="https://www.unoesc.edu.br/" target="blank">Unoesc Chapecó <i class="fas fa-external-link-alt fa-fw"></i></a>
+							<i class="far fa-copyright"></i> 2019 &bull; <a class="link" href="https://www.unoesc.edu.br/" target="blank">Unoesc Chapecó <i class="fas fa-external-link-alt"></i></a>
 						</div>
 					</div>
 				</div>
