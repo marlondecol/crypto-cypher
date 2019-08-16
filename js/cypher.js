@@ -174,7 +174,7 @@ function getRight(char) {
  * 
  * Retirado de {@link https://thiscouldbebetter.wordpress.com/2012/12/18/loading-editing-and-saving-a-text-file-in-html5-using-javascrip thiscouldbebetter}
  * 
- * @param {element} input Um dos campos de texto de mensagem do CryptoCypher.
+ * @param {element} input Um dos campos de texto de mensagem do Crypto Cypher.
  */
 function saveFile(input) {
 	// Captura a data e hora atual para usá-la no nome do arquivo...
@@ -276,7 +276,7 @@ function toggleHelp() {
 /**
  * Alterna a exibição dos botões de opções em cada campo de texto, quando há ou não texto.
  * 
- * @param {element} input Um dos campos de texto de mensagem do CryptoCypher.
+ * @param {element} input Um dos campos de texto de mensagem do Crypto Cypher.
  */
 function toggleOptions(input) {
 	if ($(input).val().length) {
