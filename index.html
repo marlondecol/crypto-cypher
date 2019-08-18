@@ -53,9 +53,15 @@
 							<textarea class="input" id="encrypted" placeholder="Digite sua mensagem criptografada aqui para revelá-la" spellcheck="false"></textarea>
 							
 							<!-- Tamanhos dos agrupamentos -->
-							<div class="param push-right hidden" title="Separa a mensagem cifrada por grupos de caracteres. Valores nulos não alteram a mensagem">
-								<i class="fas fa-shield-alt fa-fw"></i> Tamanho dos agrupamentos:
-								<input type="number" name="groupSize" id="groupSize" min="0" max="100" value="0">
+							<div class="params hidden">
+								<div class="param toggle" id="toggleSpace" title="Remove todos os espaço da mensagem cifrada">
+									<i class="fas fa-compress-arrows-alt fa-fw"></i><span>Remover espaços</span>
+								</div>
+	
+								<div class="param" title="Separa a mensagem cifrada por grupos de caracteres. Valores nulos não alteram a mensagem">
+									<i class="fas fa-shield-alt fa-fw"></i><span>Tamanho dos agrupamentos:</span>
+									<input type="number" name="groupSize" id="groupSize" min="0" max="100" value="0">
+								</div>
 							</div>
 						</div>
 					</div>

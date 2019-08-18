@@ -40,11 +40,11 @@ a {
 }
 
 .title:hover {
-	color: #00bfff;
+	color: #009ccc;
 }
 
 .title:active {
-	text-shadow: 0 0 8px rgba(0, 191, 255, 0.3);
+	text-shadow: 0 0 8px rgba(0, 156, 204, 0.3);
 }
 
 .help {
@@ -65,7 +65,7 @@ a {
 }
 
 .help:active {
-	color: #00bfff;
+	color: #009ccc;
 }
 
 .help > span {
@@ -75,8 +75,8 @@ a {
 }
 
 .help.active {
-	color: #00bfff;
-	text-shadow: 0 0 8px rgba(0, 191, 255, 0.3);
+	color: #009ccc;
+	text-shadow: 0 0 8px rgba(0, 156, 204, 0.3);
 }
 
 .help.active:hover {
@@ -186,7 +186,7 @@ a {
 }
 
 .option:hover {
-	color: #00bfff;
+	color: #009ccc;
 }
 
 .option.danger:hover {
@@ -221,17 +221,69 @@ a {
 	color: #333;
 }
 
-.param {
-	background-color: black;
-	border-radius: 4px 4px 8px 8px;
-	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
-	font-size: 10pt;
-	padding: 4px;
+.params {
+	align-items: stretch;
+	display: flex;
+	justify-content: flex-end;
 	position: absolute;
 	right: 0;
 	top: calc(100% + 4px);
+	width: 100%;
+}
+
+.param {
+	align-items: center;
+	background-color: black;
+	border-radius: 4px 4px 8px 8px;
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+	display: flex;
+	font-size: 10pt;
+	margin: 0 2px;
+	padding: 4px 6px;
 	transition: opacity 0.2s, visibility 0.2s;
 	user-select: none;
+}
+
+.param:first-child {
+	margin-left: 0;
+}
+
+.param:last-child {
+	margin-right: 0;
+}
+
+.param.toggle {
+	cursor: pointer;
+	transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
+}
+
+.param.toggle:hover {
+	background-color: #eee;
+	color: black;
+}
+
+.param.toggle:active {
+	background-color: #009ccc;
+	color: black;
+}
+
+.param.toggle.active {
+	background-color: #009ccc;
+	box-shadow: 0 0 8px 0 rgba(0, 156, 204, 0.3);
+	color: black;
+}
+
+.param.toggle.active:hover {
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+}
+
+.param.toggle.active:active {
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+	background-color: #eee;
+}
+
+.param > span {
+	margin: 0 4px;
 }
 
 .param > input {
@@ -348,12 +400,12 @@ a {
 }
 
 .link:active {
-	color: #00bfff;
-	text-shadow: 0 0 4px rgba(0, 191, 255, 0.3);
+	color: #009ccc;
+	text-shadow: 0 0 4px rgba(0, 156, 204, 0.3);
 }
 
 .link.normal {
-	color: #00bfff;
+	color: #009ccc;
 }
 
 #encrypted {

@@ -41,7 +41,7 @@ function agroup(msg, countTime=true) {
 	if (countTime) startTime = new Date();
 
 	// Retira todos os espaços.
-	msg = msg.replace(/\s/g,'');
+	msg = removeSpaces(msg, false);
 
 	// Vai "fatiando" a mensagem usando como parâmetro de tamanho o que estiver definido na variável groupSize.
 	// Note que no incremento é adicionado +1 além do groupSize porque o espaço já foi adicionado antes desta etapa.
@@ -63,7 +63,7 @@ function agroup(msg, countTime=true) {
  * @param {string} msg Mensagem criptografada a ser revelada.
  * @param {boolean} countTime Indica se o tempo deve ser contado.
  * 
- * @return {string} Mensagem revelada.
+ * @return {string} A mensagem revelada.
  */
 function decrypt(msg, countTime=true) {
 	// Começa a contar o tempo.
@@ -94,7 +94,7 @@ function decrypt(msg, countTime=true) {
  * @param {string} msg Mensagem original a ser criptografada.
  * @param {boolean} countTime Indica se o tempo deve ser contado.
  * 
- * @return {string} Mensagem criptografada.
+ * @return {string} A mensagem criptografada.
  */
 function encrypt(msg, countTime=true) {
 	numEncrypted = 0;
@@ -170,6 +170,29 @@ function getRight(char) {
 
 
 /**
+ * Remove todos os espaços de uma mensagem.
+ * 
+ * @param {string} msg Mensagem para remover os espaços.
+ * @param {boolean} countTime Indica se o tempo deve ser contado.
+ * 
+ * @return {string} A mensagem com os espaços removidos.
+ */
+function removeSpaces(msg, countTime=true) {
+	// Começa a contar o tempo.
+	if (countTime) startTime = new Date();
+
+	// Remove os espaços.
+	msg = msg.replace(/\s/g,'');
+
+	// Termina de contar o tempo.
+	if (countTime) endTime = new Date();
+
+	return msg;
+}
+
+
+
+/**
  * Baixa um arquivo .txt de uma das mensagens.
  * 
  * Retirado de {@link https://thiscouldbebetter.wordpress.com/2012/12/18/loading-editing-and-saving-a-text-file-in-html5-using-javascrip thiscouldbebetter}
@@ -218,7 +241,7 @@ function saveFile(input) {
  * Esta função foi feita para não ter que fazer toda a estrutura manualmente na página HTML,
  * e também porque já se ajusta automaticamente caso o alfabeto e seus grupos são alterados.
  */
-function showMethod() {
+function showMap() {
 	// Para cada letra do alfabeto...
 	for (var j = 0; j < alphabet.length; j++) {
 		// ... cria uma "estrutura" que exibe ela juntamente com seu grupo de caracteres.
@@ -264,11 +287,33 @@ function showMethod() {
 
 
 /**
+ * Ativa ou desativa um elemento alternando a classe "active".
+ * 
+ * @param {element} input O elemento a alternar a ativação.
+ */
+function toggleActive(input) {
+	$(input).toggleClass("active");
+}
+
+
+
+/**
  * Alterna a exibição do painel de informações.
  */
 function toggleHelp() {
-	$(".page").toggleClass("hidden");
-	$(".help").toggleClass("active");
+	toggleHidden(".page");
+	toggleActive(".help");
+}
+
+
+
+/**
+ * Exibe ou esconde um elemento alternando a classe "hidden".
+ * 
+ * @param {element} input O elemento a alternar a exibição.
+ */
+function toggleHidden(input) {
+	$(input).toggleClass("hidden");
 }
 
 
@@ -279,11 +324,11 @@ function toggleHelp() {
  * @param {element} input Um dos campos de texto de mensagem do Crypto Cypher.
  */
 function toggleOptions(input) {
-	if ($(input).val().length) {
-		$(".buttons, .note, .param").removeClass("hidden");
-	} else {
-		$(".buttons, .note, .param").addClass("hidden");
-	}
+	var elements = $(".buttons, .note, .params");
+	
+	$(input).val().length ?
+		elements.removeClass("hidden") :
+		elements.addClass("hidden");
 }
 
 
@@ -319,6 +364,9 @@ $(".option.clear").click(function() {
 
 	// Zera o parâmetro de tamanho do agrupamento.
 	$("#groupSize").val(0).trigger("input");
+
+	// Desativa o botão de remover espaços.
+	$("#toggleSpace").removeClass("active");
 	
 	$(input).val("");
 	$(input).trigger("input");
@@ -362,13 +410,22 @@ $(".option.save").click(function() {
  * Encripta um texto conforme digita uma mensagem e vai mostrando no campo oposto.
  */
 $("#decrypted").on("input", function() {
-	// A cada mudança, zera o parâmetro de tamanho do agrupamento.
+	// Zera o parâmetro de tamanho do agrupamento...
 	$("#groupSize").val(0).trigger("input");
 
+	// Desativa o botão de remover espaços.
+	$("#toggleSpace").removeClass("active");
+
+	// Exibe o resultado da encriptação.
 	$("#encrypted").val(encrypt($(this).val()));
 
+	// Alterna a exibição das opções e configurações.
 	toggleOptions(this);
+
+	// Atualiza os contadores de caracteres e bytes.
 	updateCounters();
+
+	// Atualiza o cronômetro.
 	updateTimer();
 });
 
@@ -378,13 +435,52 @@ $("#decrypted").on("input", function() {
  * Decifra uma mensagem criptografada conforme ela é informada e vai mostrando a mensagem revelada no outro campo.
  */
 $("#encrypted").on("input", function(ev) {
-	// A cada mudança, zera o parâmetro de tamanho do agrupamento.
+	// Zera o parâmetro de tamanho do agrupamento.
 	$("#groupSize").val(0).trigger("input");
 	
+	// Exibe o resultado da decriptação.
 	$("#decrypted").val(decrypt($(this).val()));
 	
+	// Alterna a exibição das opções e configurações.
 	toggleOptions(this);
+
+	// Atualiza os contadores de caracteres e bytes.
 	updateCounters();
+
+	// Atualiza o cronômetro.
+	updateTimer();
+});
+
+
+
+/**
+ * Alterna a remoção de espaço da mensagem criptografada.
+ */
+$("#toggleSpace").click(function() {
+	// Alterna a ativação do botão.
+	toggleActive(this);
+
+	// A mensagem cifrada não pode permitir modificação se os espaços estiverem removidos ou se o agrupamento estiver ativado.
+	$("#encrypted").prop("readonly", groupSize > 0 || $(this).hasClass("active"));
+	
+	// Define o texto da mensagem cifrada...
+	$("#encrypted").val(
+		// ... de acordo com o estado do botão.
+		$(this).hasClass("active") ?
+			// Se estiver pressionado, remove os espaços.
+			removeSpaces(encrypt($("#decrypted").val(), false)) :
+			// Senão, se um tamanho de agrupamento já estiver definido, ...
+			groupSize > 0 ?
+				// ... faz o agrupamento...
+				agroup(encrypt($("#decrypted").val(), false)) :
+				// ... ou, caso contrário, simplemente criptografa a mensagem original.
+				encrypt($("#decrypted").val())
+	);
+
+	// Atualiza os contadores de caracteres e bytes.
+	updateCounters();
+
+	// Atualiza o cronômetro.
 	updateTimer();
 });
 
@@ -394,6 +490,9 @@ $("#encrypted").on("input", function(ev) {
  * Muda o agrupamento de caracteres ao digitar um valor.
  */
 $("#groupSize").on("input", function() {
+	// Desativa o botão de remover espaços.
+	$("#toggleSpace").removeClass("active");
+
 	// Como o input permite inserir números fracionários, é necessário obter o inteiro deste número.
 	groupSizeVal = Math.floor($(this).val());
 	
@@ -413,12 +512,16 @@ $("#groupSize").on("input", function() {
 	
 	// Define a variável global como sendo o valor do input.
 	groupSize = groupSizeVal;
-	
-	// Se o valor for diferente de 0, faz os agrupamentos, senão mantém as características da mensagem original.
-	$("#encrypted").val(groupSize > 0 ? agroup(encrypt($("#decrypted").val(), false)) : encrypt($("#decrypted").val()));
 
 	// Quando estiver exibindo os agrupamentos, não permite modificar o texto da mensagem cifrada.
 	$("#encrypted").prop("readonly", groupSize > 0);
+	
+	// Se o valor for diferente de 0, faz os agrupamentos, senão mantém as características da mensagem original.
+	$("#encrypted").val(
+		groupSize > 0 ?
+			agroup(encrypt($("#decrypted").val(), false)) :
+			encrypt($("#decrypted").val())
+	);
 
 	// Atualiza os contadores de caracteres e bytes.
 	updateCounters();
@@ -449,5 +552,5 @@ $(document).ready(function() {
 	updateCounters();
 
 	// Gera a tabela do alfabeto.
-	showMethod();
+	showMap();
 });
