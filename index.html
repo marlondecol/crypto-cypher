@@ -7,11 +7,15 @@
 		
 		<title>Crypto Cypher</title>
 
+		<!-- Define o ícone da página -->
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
 		<!-- Arquivos CSS da aplicação -->
 		<link rel="stylesheet" href="css/font-awesome.css">
 		<link rel="stylesheet" href="css/normalize.css">
 		<link rel="stylesheet" href="css/style.css">
 	</head>
+
 	<body>
 		<div class="container">
 			<!-- Título e botão de informações -->
@@ -28,36 +32,83 @@
 					<div class="row grow">
 						<!-- Campo da mensagem revelada -->
 						<div class="col box">
+							<!-- Cabeçalho, contador de bytes e botões de opções -->
 							<div class="info">
 								<i class="icon fas fa-font"></i> Mensagem revelada
-								<div class="buttons hidden">
-									<div class="option clear danger" id="clearDecrypted" title="Limpar mensagem"><i class="fas fa-eraser fa-fw"></i></div>
-									<div class="option copy" id="copyDecrypted" title="Copiar mensagem"><i class="fas fa-copy fa-fw"></i></div>
-									<div class="option save" id="saveDecrypted" title="Baixar mensagem"><i class="fas fa-file-download fa-fw"></i></div>
+								<div class="all-buttons">
+									<div class="buttons hidden">
+										<div class="option clear danger" id="clearDecrypted" title="Limpar este campo"><i class="fas fa-eraser fa-fw"></i></div>
+										<div class="option copy" id="copyDecrypted" title="Copiar esta mensagem"><i class="fas fa-copy fa-fw"></i></div>
+										<div class="option save" id="saveDecrypted" title="Baixar esta mensagem"><i class="fas fa-file-download fa-fw"></i></div>
+									</div>
+									
+									<div class="option load" id="loadDecrypted" title="Inserir mensagem a partir de um arquivo"><i class="fas fa-file-upload fa-fw"></i></div>
 								</div>
 							</div>
+
+							<!-- Campo de texto da mensagem -->
 							<textarea class="input" id="decrypted" placeholder="Digite sua mensagem aqui para criptografá-la" spellcheck="false" autofocus></textarea>
+
+							<!-- Barra de progresso para o envio de arquivos -->
+							<div class="progress-loading hidden">
+								<div class="progress-bar grow">
+									<div class="white-bg">
+										<div class="progress"></div>
+									</div>
+									
+									<div class="percent">0%</div>
+								</div>
+
+								<!-- Botão para cancelar o carregamento do arquivo -->
+								<div class="progress-cancel forbidden">
+									<i class="fas fa-times-circle fa-fw"></i><span>Cancelar</span>
+								</div>
+							</div>
 						</div>
 						
 						<!-- Campo da mensagem cifrada -->
 						<div class="col box">
+							<!-- Cabeçalho, contador de bytes e botões de opções -->
 							<div class="info">
 								<div class="note hidden"><span id="numBytes"></span> bytes</div>
 								<i class="icon fas fa-eye-slash"></i> Mensagem cifrada
-								<div class="buttons hidden">
-									<div class="option clear danger" id="clearEncrypted" title="Limpar mensagem"><i class="fas fa-eraser fa-fw"></i></div>
-									<div class="option copy" id="copyEncrypted" title="Copiar mensagem"><i class="fas fa-copy fa-fw"></i></div>
-									<div class="option save" id="saveEncrypted" title="Baixar mensagem"><i class="fas fa-file-download fa-fw"></i></div>
+								<div class="all-buttons">
+									<div class="buttons hidden">
+										<div class="option clear danger" id="clearEncrypted" title="Limpar este campo"><i class="fas fa-eraser fa-fw"></i></div>
+										<div class="option copy" id="copyEncrypted" title="Copiar esta mensagem"><i class="fas fa-copy fa-fw"></i></div>
+										<div class="option save" id="saveEncrypted" title="Baixar esta mensagem"><i class="fas fa-file-download fa-fw"></i></div>
+									</div>
+									
+									<div class="option load" id="loadEncrypted" title="Inserir mensagem a partir de um arquivo"><i class="fas fa-file-upload fa-fw"></i></div>
 								</div>
 							</div>
-							<textarea class="input" id="encrypted" placeholder="Digite sua mensagem criptografada aqui para revelá-la" spellcheck="false"></textarea>
 							
-							<!-- Tamanhos dos agrupamentos -->
+							<!-- Campo de texto da mensagem -->
+							<textarea class="input" id="encrypted" placeholder="Digite sua mensagem criptografada aqui para revelá-la" spellcheck="false"></textarea>
+
+							<!-- Barra de progresso para o envio de arquivos -->
+							<div class="progress-loading hidden">
+								<div class="progress-bar grow">
+									<div class="white-bg">
+										<div class="progress"></div>
+									</div>
+									
+									<div class="percent">0%</div>
+								</div>
+
+								<!-- Botão para cancelar o carregamento do arquivo -->
+								<div class="progress-cancel forbidden">
+									<i class="fas fa-times-circle fa-fw"></i><span>Cancelar</span>
+								</div>
+							</div>
+							
 							<div class="params hidden">
+								<!-- Opção de remover os espaços -->
 								<div class="param toggle" id="toggleSpace" title="Remove todos os espaço da mensagem cifrada">
 									<i class="fas fa-compress-arrows-alt fa-fw"></i><span>Remover espaços</span>
 								</div>
-	
+
+								<!-- Tamanhos dos agrupamentos -->
 								<div class="param" title="Separa a mensagem cifrada por grupos de caracteres. Valores nulos não alteram a mensagem">
 									<i class="fas fa-shield-alt fa-fw"></i><span>Tamanho dos agrupamentos:</span>
 									<input type="number" name="groupSize" id="groupSize" min="0" max="100" value="0">
@@ -98,24 +149,27 @@
 
 								<p>Os processos de encriptação e decriptação do <b>Crypto Cypher</b> são automáticos. A cada alteração em qualquer um dos campos de mensagem, o resultado obtido será exibido no campo oposto, ou seja, ao inserir ou modificar uma mensagem no campo <em>Mensagem revelada</em>, a mensagem criptografada aparecerá imediatamente no campo <em>Mensagem cifrada</em>, e vice-versa.</p>
 
-								<p>Assim que qualquer mensagem for inserida, alguns botões de opções estarão disponíveis no canto superior direito de cada campo e um contador de <em>bytes</em> para a mensagem criptografada é exibido no canto superior esquerdo deste campo, bem como uma opção de configuração do tamanho do agrupamento para a mensagem cifrada, logo abaixo.</p>
+								<p>Assim que qualquer mensagem for inserida, alguns botões de opções estarão disponíveis no canto superior direito de cada campo e um contador de <em>bytes</em> para a mensagem cifrada é exibido no canto superior esquerdo deste campo, bem como uma opção de remover espaços e uma outra de configuração do tamanho do agrupamento, ambas para a mensagem cifrada, logo abaixo.</p>
 								
 								<p>As opções dos botões são, respectivamente:</p>
 
 								<div class="list">
-									<div class="item"><i class="item-marker fas fa-eraser fa-fw"></i><div class="item-text">apagar as mensagens e retomar o foco no campo;</div></div>
-									<div class="item"><i class="item-marker fas fa-copy fa-fw"></i><div class="item-text">copiar toda a mensagem; e</div></div>
-									<div class="item"><i class="item-marker fas fa-file-download fa-fw"></i><div class="item-text">salvar a mensagem em um arquivo localmente.</div></div>
+									<div class="item"><i class="item-marker fas fa-eraser fa-fw"></i><div class="item-text">Apagar as mensagens e retomar o foco no campo.</div></div>
+									<div class="item"><i class="item-marker fas fa-copy fa-fw"></i><div class="item-text">Copiar toda a mensagem.</div></div>
+									<div class="item"><i class="item-marker fas fa-file-download fa-fw"></i><div class="item-text">Salvar a mensagem em um arquivo localmente.</div></div>
+									<div class="item"><i class="item-marker fas fa-file-upload fa-fw"></i><div class="item-text">Permite inserir uma mensagem a partir do conteúdo de um arquivo de texto. Vale ressaltar que este botão está sempre disponível.</div></div>
 								</div>
 								
-								<p>Todas estas opções são relativas ao campo na qual os botões pertencem. O contador de <em>bytes</em> conta a quantidade de caracteres que a mensagem cifrada possui. A configuração de tamanho do agrupamento indica que, ao separar o texto por espaços, serão mantidos grupos desta quantidade de caracteres sem espaços. O tamanho pode variar de 0 a 100, onde 0 é o padrão e significa que não há agrupamento, mantendo as características do texto revelado. O agrupamento de caracteres serve para tornar a mensagem cifrada mais incompreensível.</p>
+								<p>Todas estas opções são relativas ao campo na qual os botões pertencem. O contador de <em>bytes</em> conta a quantidade de caracteres que a mensagem cifrada possui. A opção de remover os espaços tem o intuito de comprimir o tamanho da mensagem cifrada, ao mesmo tempo em que a torna mais incompreensível. A configuração de tamanho do agrupamento indica que, ao separar o texto por espaços, serão mantidos grupos desta quantidade de caracteres sem espaços. O tamanho pode variar de 0 a 100, onde 0 é o padrão e significa que não há agrupamento, mantendo as características do texto revelado. O agrupamento de caracteres também serve para tornar a mensagem cifrada mais incompreensível.</p>
+
+								<p>Ao selecionar um arquivo de texto para importar seu conteúdo, é exibida uma barra de progresso abaixo do campo de mensagem relativo ao botão que foi pressionado. Assim que o processo for concluído, a mensagem carregada aparecerá no campo de texto e os processos de encriptação ou decriptação ocorrerão automaticamente. É possível interromper o carregamento, caso necessário, pressionando o botão <em>Cancelar</em> ao lado da barra, mas apenas durante o processo, pois o mesmo é desativado em caso de erro ou quando o arquivo foi completamente carregado. Lembrando que são suportados apenas arquivos de texto com extensão <code>.txt</code>.</p>
 
 								<p>No rodapé da página são observados alguns contadores. Eles indicam, respectivamente, o seguinte:</p>
 
 								<div class="list">
-									<div class="item"><i class="item-marker fas fa-stopwatch fa-fw"></i><div class="item-text">o tempo que cada processo demorou para ser executado;</div></div>
-									<div class="item"><i class="item-marker fas fa-font fa-fw"></i><div class="item-text">o total de caracteres que compõem a mensagem revelada; e</div></div>
-									<div class="item"><i class="item-marker fas fa-eye-slash fa-fw"></i><div class="item-text">a quantidade de caracteres que foram substituídos pelo processo de encriptação.</div></div>
+									<div class="item"><i class="item-marker fas fa-stopwatch fa-fw"></i><div class="item-text">O tempo que cada processo demorou para ser executado.</div></div>
+									<div class="item"><i class="item-marker fas fa-font fa-fw"></i><div class="item-text">O total de caracteres que compõem a mensagem revelada.</div></div>
+									<div class="item"><i class="item-marker fas fa-eye-slash fa-fw"></i><div class="item-text">A quantidade de caracteres que foram substituídos pelo processo de encriptação.</div></div>
 								</div>
 
 								<p>Estes contadores são atualizados toda vez que ocorre uma mudança em uma das mensagens e, também, sempre que o tamanho do agrupamento é alterado.</p>

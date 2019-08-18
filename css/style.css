@@ -164,13 +164,17 @@ a {
 	transition: opacity 0.2s, visibility 0.2s;
 }
 
+.all-buttons {
+	right: 0;
+	position: absolute;
+	transition: opacity 0.2s, visibility 0.2s;
+}
+
+.all-buttons,
 .buttons {
 	align-items: center;
 	display: flex;
 	justify-content: center;
-	right: 0;
-	position: absolute;
-	transition: opacity 0.2s, visibility 0.2s;
 }
 
 .option {
@@ -221,13 +225,88 @@ a {
 	color: #333;
 }
 
+.progress-loading {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	left: 0;
+	position: absolute;
+	top: calc(100% + 4px);
+	transition: opacity 0.2s, visibility 0.2s;
+	user-select: none;
+	width: 100%;
+}
+
+.progress-bar,
+.progress-cancel {
+	align-items: center;
+	background-color: black;
+	border-radius: 4px 4px 8px 8px;
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+	display: flex;
+	font-size: 10pt;
+	height: 20px;
+	justify-content: center;
+	padding: 4px;
+	transition: opacity 0.2s, visibility 0.2s;
+}
+
+.progress-bar {
+	margin-right: 2px;
+	position: relative;
+}
+
+.progress-cancel {
+	margin-left: 2px;
+	padding: 4px 6px;
+}
+
+.progress-cancel > span {
+	margin: 0 4px;
+}
+
+.white-bg,
+.percent {
+	align-items: center;
+	border-radius: 1px 1px 5px 5px;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	width: 100%;
+}
+
+.white-bg {
+	background-color: #eee;
+	box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6);
+	justify-content: flex-start;
+}
+
+.progress {
+	background-color: #009ccc;
+	border-radius: 1px 1px 5px 5px;
+	box-shadow: 0 0 8px 0 rgba(0, 156, 204, 0.6);
+	height: 100%;
+}
+
+.percent {
+	color: black;
+	font-weight: 500;
+	left: 0;
+	position: absolute;
+	text-align: center;
+	text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+	top: 0;
+}
+
 .params {
-	align-items: stretch;
+	align-items: center;
 	display: flex;
 	justify-content: flex-end;
 	position: absolute;
 	right: 0;
 	top: calc(100% + 4px);
+	transition: opacity 0.2s, visibility 0.2s;
+	user-select: none;
 	width: 100%;
 }
 
@@ -238,10 +317,9 @@ a {
 	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
 	display: flex;
 	font-size: 10pt;
+	height: 20px;
 	margin: 0 2px;
 	padding: 4px 6px;
-	transition: opacity 0.2s, visibility 0.2s;
-	user-select: none;
 }
 
 .param:first-child {
@@ -252,32 +330,32 @@ a {
 	margin-right: 0;
 }
 
-.param.toggle {
+.toggle {
 	cursor: pointer;
 	transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
 }
 
-.param.toggle:hover {
+.toggle:hover {
 	background-color: #eee;
 	color: black;
 }
 
-.param.toggle:active {
+.toggle:active {
 	background-color: #009ccc;
 	color: black;
 }
 
-.param.toggle.active {
+.toggle.active {
 	background-color: #009ccc;
 	box-shadow: 0 0 8px 0 rgba(0, 156, 204, 0.3);
 	color: black;
 }
 
-.param.toggle.active:hover {
+.toggle.active:hover {
 	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
 }
 
-.param.toggle.active:active {
+.toggle.active:active {
 	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
 	background-color: #eee;
 }
@@ -315,7 +393,7 @@ a {
 .pars {
 	background-color: #333;
 	border-radius: 1px;
-	box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6);
+	box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6)0.6;;
 	color: #eee;
 	line-height: 125%;
 	overflow-y: auto;
@@ -332,6 +410,10 @@ a {
 
 .list > .item > .item-marker {
 	margin-right: 12px;
+}
+
+.list > .item > .item-text {
+	width: 100%;
 }
 
 .contour {
@@ -435,6 +517,15 @@ a {
 	justify-content: space-between;
 }
 
+.error {
+	background-color: #d01;
+}
+
+.forbidden {
+	background-color: #333;
+	color: #777;
+}
+
 .grow {
 	flex-grow: 1;
 }
@@ -446,6 +537,10 @@ a {
 
 .lower {
 	margin-top: 48px;
+}
+
+.missing {
+	display: none;
 }
 
 .no-select {

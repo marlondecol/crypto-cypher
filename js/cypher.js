@@ -26,6 +26,15 @@ var startTime, endTime;
 // Flag que é verdadeira apenas ao carregar a página.
 var firstRun = true;
 
+// Diálogo para seleção de arquivos.
+var selector;
+
+// Objeto do arquivo a ser lido.
+var reader;
+
+// Barra de progresso do carregamento do arquivo.
+var progressBar;
+
 
 
 /**
@@ -131,6 +140,36 @@ function encrypt(msg, countTime=true) {
 
 
 /**
+ * Manipula eventuais erros ocorridos no carregamento de arquivos.
+ * 
+ * Retirado de {@link https://www.html5rocks.com/pt/tutorials/file/dndfiles html5rocks}
+ * 
+ * @param {object} event Evento ocorrido na tentativa de carregar um arquivo.
+ */
+function errorHandler(event) {
+	// Verifica quais foram os erros.
+	switch (event.target.error.code) {
+		case event.target.error.NOT_FOUND_ERR:
+			// Arquivo inexistente.
+			showFeedback("Arquivo não encontrado!", true);
+			break;
+		case event.target.error.NOT_READABLE_ERR:
+			// O arquivo não pôde ser lido.
+			showFeedback("O arquivo é ilegível!", true);
+			break;
+		case event.target.error.ABORT_ERR:
+			// Este erro já é tratado.
+			break;
+		default:
+			// Erro desconhecido.
+			showFeedback("Um erro ocorreu ao ler este arquivo!", true);
+			break;
+	};
+}
+
+
+
+/**
  * Seleciona um caractere aleatório do grupo pertencente ao caractere informado para criptografá-lo.
  * 
  * @param {char} char Um caractere da mensagem original.
@@ -165,6 +204,89 @@ function getRight(char) {
 			return alphabet.charAt(group.indexOf(char));
 		}
 	}
+}
+
+
+
+/**
+ * Manipula um arquivo que foi selecionado para leitura.
+ * 
+ * Retirado de {@link https://www.html5rocks.com/pt/tutorials/file/dndfiles html5rocks}
+ * 
+ * @param {element} button O campo de texto relativo ao botão de carregamento de arquivo pressionado.
+ * @param {object} event Evento ocorrido pela seleção do arquivo para leitura.
+ */
+function loadFile(button, event) {
+	// Obtém a barra de progresso relativa ao botão pressionado.
+	progressBar = $(button).parent().parent().parent().find(".progress-loading");
+
+	// Reinicia a barra de progresso ao selecionar um novo arquivo.
+	progressBar
+		.find(".progress")
+		.css("width", "0");
+	progressBar
+		.find(".percent")
+		.text("0%");
+
+	// Exibe a barra de progresso.
+	progressBar.removeClass("hidden");
+
+	// Retira o fundo vermelho da barra para o próximo carregamento.
+	if (progressBar.find(".white-bg").hasClass("error")) {
+		progressBar.find(".white-bg").removeClass("error");
+	}
+
+	// Esconde as opções e configurações.
+	$(".all-buttons .option, .buttons, .note, .params").each(function() {
+		if (!$(this).hasClass("hidden")) $(this).addClass("hidden");
+	});
+
+	// Impede que as mensagens sejam alteradas durante o carregamento do arquivo.
+	$(".input").prop("readonly", true);
+
+	// Arquivo carregado pelo seletor de arquivos.
+	var file = event.target.files[0];
+
+	// Verifica se o arquivo realmente é de texto.
+	if (file.type != "text/plain") {
+		// Exibe uma mensagem informando que o arquivo é inválido.
+		showFeedback("Arquivo inválido!", true);
+
+		// Para por aqui.
+		return;
+	}
+
+	// Instancia um novo leitor de arquivos.
+	reader = new FileReader();
+	reader.onerror = errorHandler;
+	reader.onprogress = updateProgress;
+	reader.onabort = function() {
+		// Informa que o carregamento foi cancelado.
+		showFeedback("Operação cancelada!");
+	};
+	reader.onloadstart = function() {
+		// Permite cancelar o carregamento.
+		progressBar
+			.find(".progress-cancel")
+			.addClass("toggle")
+			.removeClass("forbidden")
+			.click(function() {
+				// Aborta o carregamento.
+				reader.abort();
+			});
+	};
+	reader.onload = function() {
+		// Garante que a barra de progresso esteja em 100% de sua largura.
+		progressBar
+			.find(".progress")
+			.css("width", "100%");
+
+		// Informa ao usuário que o arquivo foi carregado.
+		showFeedback("Operação concluída!");
+	};
+
+	// Lê o conteúdo do arquivo como uma string de bytes.
+	reader.readAsBinaryString(file);
 }
 
 
@@ -231,6 +353,60 @@ function saveFile(input) {
 
 	// ... e remove-o em seguida.
 	document.body.removeChild(link);
+}
+
+
+
+/**
+ * Informa ao usuário os eventos ocorridos no processo de carregamento do arquivo.
+ * É esta função que é responsável por exibir ou esconder os elementos apropriados durante e depois de carregar um arquivo.
+ * 
+ * @param {string} msg Mensagem a ser exibida como feedback do carregamento do arquivo.
+ * @param {boolean} error Indica se deve mostrar ou não o fundo vermelho na barra de progresso.
+ */
+function showFeedback(msg, error=false) {
+	// Bloqueia o botão de interrupção do processo.
+	progressBar
+		.find(".progress-cancel")
+		.addClass("forbidden")
+		.removeClass("toggle");
+
+	// Informa a mensagem ao usuário.
+	progressBar
+		.find(".percent")
+		.text(msg);
+	
+	// Exibe um fundo vermelho na barra de progresso em caso de erro.
+	if (error) progressBar.find(".white-bg").addClass("error");
+	
+	// Mantém a barra na tela por 2 segundos antes de continuar.
+	setTimeout(function() {
+		// Esconde a barra de progresso.
+		if (!progressBar.hasClass("hidden")) progressBar.addClass("hidden");
+
+		// Exibe os botões de carregamento de arquivos.
+		$(".all-buttons .option").removeClass("hidden");
+
+		// Permite a escrita nos campos de texto.
+		$(".input").prop("readonly", false);
+	
+		// Obtém o campo de texto relativo ao botão pressionado.
+		var input = progressBar.parent().find(".input");
+		
+		if (!error) {
+			// Exibe a mensagem do arquivo no campo de texto.
+			input.val(reader.result);
+
+			// Faz as operações de criptografia com a mensagem inserida.
+			input.trigger("input");
+		} else {
+			// Exibe os botões e configurações.
+			toggleOptions(input);
+		}
+	
+		// Dá foco no campo.
+		input.focus();
+	}, 2000);
 }
 
 
@@ -345,6 +521,33 @@ function updateCounters() {
 
 
 /**
+ * Atualiza a barra de progresso do carregamento de arquivos.
+ * 
+ * @param {object} event Evento capturado pelo leitor do arquivo.
+ */
+function updateProgress(event) {
+	if (event.lengthComputable) {
+		// Calcula a porcentagem já processada.
+		var percentLoaded = Math.round((event.loaded / event.total) * 100);
+		
+		// Incrementa o tamanho da barra de acordo com a porcentagem de conclusão do carregamento do arquivo.
+		if (percentLoaded < 100) {
+			// Largura da barra azul, que mostra quanto foi carregado.
+			progressBar
+				.find(".progress")
+				.css("width", percentLoaded + "%");
+			
+			// Porcentagem carregada.
+			progressBar
+				.find(".percent")
+				.text(percentLoaded + "%");
+		}
+	}
+}
+
+
+
+/**
  * Atualiza o cronômetro.
  */
 function updateTimer() {
@@ -360,7 +563,7 @@ function updateTimer() {
  */
 $(".option.clear").click(function() {
 	// Define qual é o campo de mensagem respectivo ao botão pressionado.
-	var input = $(this).parent().parent().next();
+	var input = $(this).parent().parent().parent().next();
 
 	// Zera o parâmetro de tamanho do agrupamento.
 	$("#groupSize").val(0).trigger("input");
@@ -368,9 +571,9 @@ $(".option.clear").click(function() {
 	// Desativa o botão de remover espaços.
 	$("#toggleSpace").removeClass("active");
 	
-	$(input).val("");
-	$(input).trigger("input");
-	$(input).focus();
+	input.val("");
+	input.trigger("input");
+	input.focus();
 });
 
 
@@ -380,10 +583,10 @@ $(".option.clear").click(function() {
  */
 $(".option.copy").click(function() {
 	// Define qual é o campo de mensagem respectivo ao botão pressionado.
-	var input = $(this).parent().parent().next();
+	var input = $(this).parent().parent().parent().next();
 	
 	// Seleciona o texto do campo.
-	$(input).select();
+	input.select();
 
 	// Executa o comando de copiar um texto selecionado.
 	document.execCommand("copy");
@@ -391,7 +594,7 @@ $(".option.copy").click(function() {
 	// Remove todas as seleções ativas na página.
 	window.getSelection().removeAllRanges();
 	
-	$(input).focus();
+	input.focus();
 });
 
 
@@ -401,7 +604,38 @@ $(".option.copy").click(function() {
  */
 $(".option.save").click(function() {
 	// O parâmetro corresponde ao campo de mensagem respectivo ao botão pressionado.
-	saveFile($(this).parent().parent().next())
+	saveFile($(this).parent().parent().parent().next())
+});
+
+
+
+/**
+ * Ação da opção de importar um arquivo.
+ */
+$(".option.load").click(function() {
+	// Envia este botão para a função responsável pelo carregamento de arquivos.
+	var button = this;
+
+	// Cria um elemento HTML para abrir o diálogo de seleção de arquivo.
+	selector = $("<input>");
+
+	// Configura os atributos do seletor de arquivos...
+	selector.prop({
+		"accept": "text/plain",
+		"class": "missing",
+		"type": "file"
+	});
+
+	// Por fim, adiciona o elemento no body da página, ...
+	$("body").append(selector);
+
+	// ... e executa o clique no elemento para abrir o diálogo de seleção de arquivos.
+	selector.click();
+
+	// Define um callback para quando um arquivo for selecionado.
+	selector.change(function(event) {
+		loadFile(button, event);
+	});
 });
 
 
@@ -473,7 +707,7 @@ $("#toggleSpace").click(function() {
 			groupSize > 0 ?
 				// ... faz o agrupamento...
 				agroup(encrypt($("#decrypted").val(), false)) :
-				// ... ou, caso contrário, simplemente criptografa a mensagem original.
+				// ... ou, caso contrário, simplesmente criptografa a mensagem original.
 				encrypt($("#decrypted").val())
 	);
 
