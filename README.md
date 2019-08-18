@@ -29,7 +29,7 @@ As opções dos botões são, respectivamente:
 - Apagar as mensagens e retomar o foco no campo.
 - Copiar toda a mensagem.
 - Salvar a mensagem em um arquivo localmente.
-- Permite inserir uma mensagem a partir do conteúdo de um arquivo de texto.
+- Permite inserir uma mensagem a partir do conteúdo de um arquivo de texto. Vale ressaltar que este botão está sempre disponível.
 
 Todas estas opções são relativas ao campo na qual os botões pertencem. O contador de *bytes* conta a quantidade de caracteres que a mensagem cifrada possui. A opção de remover os espaços tem o intuito de comprimir o tamanho da mensagem cifrada, ao mesmo tempo em que a torna mais incompreensível. A configuração de tamanho do agrupamento indica que, ao separar o texto por espaços, serão mantidos grupos desta quantidade de caracteres sem espaços. O tamanho pode variar de 0 a 100, onde 0 é o padrão e significa que não há agrupamento, mantendo as características do texto revelado. O agrupamento de caracteres também serve para tornar a mensagem cifrada mais incompreensível.
 
