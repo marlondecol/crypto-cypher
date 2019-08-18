@@ -22,7 +22,7 @@ Os processos de encriptação e decriptação do Crypto Cypher são automáticos
 
 ### Opções e agrupamento de caracteres
 
-Assim que qualquer mensagem for inserida, alguns botões de opções estarão disponíveis no canto superior direito de cada campo e um contador de *bytes* para a mensagem criptografada é exibido no canto superior esquerdo deste campo, bem como uma opção de configuração do tamanho do agrupamento para a mensagem cifrada, logo abaixo.
+Assim que qualquer mensagem for inserida, alguns botões de opções estarão disponíveis no canto superior direito de cada campo e um contador de *bytes* para a mensagem cifrada é exibido no canto superior esquerdo deste campo, bem como uma opção de remover espaços e uma outra de configuração do tamanho do agrupamento, ambas para a mensagem cifrada, logo abaixo.
 
 As opções dos botões são, respectivamente:
 
@@ -30,7 +30,7 @@ As opções dos botões são, respectivamente:
 - Copiar toda a mensagem.
 - Salvar a mensagem em um arquivo localmente.
 
-Todas estas opções são relativas ao campo na qual os botões pertencem. O contador de *bytes* conta a quantidade de caracteres que a mensagem cifrada possui. A configuração de tamanho do agrupamento indica que, ao separar o texto por espaços, serão mantidos grupos desta quantidade de caracteres sem espaços. O tamanho pode variar de 0 a 100, onde 0 é o padrão e significa que não há agrupamento, mantendo as características do texto revelado. O agrupamento de caracteres serve para tornar a mensagem cifrada mais incompreensível.
+Todas estas opções são relativas ao campo na qual os botões pertencem. O contador de *bytes* conta a quantidade de caracteres que a mensagem cifrada possui. A opção de remover os espaços tem o intuito de comprimir o tamanho da mensagem cifrada, ao mesmo tempo em que a torna mais incompreensível. A configuração de tamanho do agrupamento indica que, ao separar o texto por espaços, serão mantidos grupos desta quantidade de caracteres sem espaços. O tamanho pode variar de 0 a 100, onde 0 é o padrão e significa que não há agrupamento, mantendo as características do texto revelado. O agrupamento de caracteres também serve para tornar a mensagem cifrada mais incompreensível.
 
 ### *Timer* e contadores
 
@@ -40,4 +40,4 @@ No rodapé da página são observados alguns contadores. Eles indicam, respectiv
 - O total de caracteres que compõem a mensagem revelada.
 - A quantidade de caracteres que foram substituídos pelo processo de encriptação.
 
-Estes contadores são atualizados toda vez que ocorre uma mudança em uma das mensagens e, também, sempre que o tamanho do agrupamento é alterado.
+Estes contadores são atualizados toda vez que ocorre uma mudança em uma das mensagens e, também, sempre que os espaços são removidos ou o tamanho do agrupamento é alterado.
